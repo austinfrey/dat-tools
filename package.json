@@ -1,0 +1,8 @@
+{
+  "name": "@zigy/dat-tools",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.0.0-rc.0"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@zigy/dat-socket",
+  "version": "0.0.1",
+  "description": "use in a project `npm install --save zigy/dat-socket`",
+  "main": "index.js",
+  "bin": {
+    "dat-socket": "bin.js"
+  },
+  "scripts": {
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "Austin Frey",
+  "license": "MIT",
+  "dependencies": {
+    "hyperdiscovery": "^8.0.0",
+    "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
+    "mississippi": "^3.0.0",
+    "random-access-memory": "^3.0.0",
+    "stoppable": "^1.0.6",
+    "to-buffer": "^1.1.1",
+    "websocket-stream": "^5.1.2"
+  }
+}
