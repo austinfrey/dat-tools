@@ -5,7 +5,7 @@ const client = new Client()
 module.exports = socketStore
 
 function socketStore(state, emitter) {
-	state.socketOn = true
+	state.socketOn = false
 	console.log('socket on', state.socketOn)
 
 	emitter.on('DOMContentLoaded', () => {

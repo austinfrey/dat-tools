@@ -6,6 +6,7 @@ const app = choo()
 css('dat-colors')
 css('tachyons')
 
+app.use(require('choo-devtools')())
 app.use(require('./stores/socket'))
 
 app.route('/', require('./views/main'))
