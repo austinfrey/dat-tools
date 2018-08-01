@@ -3,27 +3,32 @@ const ram = require('random-access-memory')
 const websocket = require('websocket-stream')
 const { pipe } = require('mississippi')
 
-module.exports = function socketClient (key, opts, url) {
+function socketClient (key, opts, url) {
 	const socket = websocket(url)
-  const drive = hyperdrive(key)
+  const drive = hyperdrive(ram, key)
 
 	if (typeof opts === 'string') {
 		url = opts
 		opts = {}
 	}
 
-	pipe(
-		socket,
-		drive.replicate(opts),
-		socket
-	)
+	drive.ready(function ready () {
+		console.log('KEY', drive.key.toString('hex'))
+	  const driveStream = drive.replicate(opts)
 
-	drive.on('end', function () {
-		socket.close()
-		drive.finalize()
+		pipe(
+			socket,
+			driveStream,
+			socket
+		)
+
+		driveStream.on('end', function () {
+			console.log('ENDED')
+			//socket.close()
+			//drive.finalize()
+		})
 	})
+
 }
 
-
-
-
+module.exports = socketClient

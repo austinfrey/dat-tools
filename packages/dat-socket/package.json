@@ -7,9 +7,14 @@
     "dat-socket": "bin.js"
   },
   "scripts": {
-    "start": "node ."
+    "start:socket": "node bin"
   },
-  "keywords": [],
+  "keywords": [
+		"dat",
+		"hyperdrive",
+		"hypercore",
+		"websockets"
+	],
   "author": "Austin Frey",
   "license": "MIT",
   "dependencies": {

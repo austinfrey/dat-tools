@@ -46,7 +46,8 @@ function logger (chunk, enc, next) {
 }
 
 function end (err) {
-	if (err) console.error(err)
+	if (err) return console.error(err)
+  console.log('Socket Closed')
 }
 
 function listening (port) {
