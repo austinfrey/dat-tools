@@ -1,21 +1,23 @@
 {
   "name": "@zigy/dat-socket-client",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha.b217066",
   "description": "",
   "main": "index.js",
-	"bin": "bin.js",
+  "bin": "bin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-		"start:client": "node bin"
+    "start:client": "node bin"
   },
-	"dependencies": {
+  "dependencies": {
     "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
     "mississippi": "^3.0.0",
     "random-access-memory": "^3.0.0",
+    "signalhub": "^4.9.0",
     "to-buffer": "^1.1.1",
     "websocket-stream": "^5.1.2"
-	},
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "gitHead": "b217066f397e15db1141bcf06bafc61356c6ccb3"
 }

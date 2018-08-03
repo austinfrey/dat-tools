@@ -1,0 +1,25 @@
+{
+  "name": "@zigy/dat-choo-websocket",
+  "version": "0.0.1",
+  "description": "A Choo store component that adds a websocket client to the state",
+  "keywords": [
+    "dat",
+    "choo",
+    "websocket",
+    "hyperdrive"
+  ],
+  "author": "austinfrey <aafrey85@gmail.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "choo": "^6.13.0",
+    "random-access-memory": "^3.0.0",
+    "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
+    "mississippi": "^3.0.0",
+    "websocket-stream": "^5.1.2"
+  }
+}
