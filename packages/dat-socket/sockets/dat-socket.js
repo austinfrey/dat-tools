@@ -27,7 +27,7 @@ function handler (stream, request) {
 	sw.on('connection', (peer, type) => console.log(type))
 
 	archive.ready(function () {
-		const archiveStream = archive.replicate({ encrypt: false, live: true })
+		const archiveStream = archive.replicate({ live: true })
 
 		pipe(
 			stream,
@@ -46,7 +46,7 @@ function logger (chunk, enc, next) {
 }
 
 function end (err) {
-	if (err) return console.error(err)
+	if (err) return console.error('EEERRRRRRROOOOO', err)
   console.log('Socket Closed')
 }
 
