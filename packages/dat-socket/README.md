@@ -14,9 +14,5 @@ server(port, cb)
 for global install
 ```bash
 $ npm i -g @zigy/dat-socket
-$ dat-socket
-```
-can optionally pass a port number, default is 3000
-```bash
 $ dat-socket 8080
 ```

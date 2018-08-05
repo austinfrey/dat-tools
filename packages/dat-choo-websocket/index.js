@@ -1,41 +1,39 @@
 const hyperdrive = require('hyperdrive')
 const ram = require('random-access-memory')
 const websocket = require('websocket-stream')
+const dataplex = require('dataplex')
 const { pipe } = require('mississippi')
 
 module.exports = passInUrl
 
 function passInUrl (url) {
 	return function datChooWebsocket (state, emitter) {
+		state.mnt = state.mnt || {}
+
 		emitter.on(state.events.DOMCONTENTLOADED, function () {
-			if (state.route === '/') return initdrive()
-			if (state.params.key) return connectdrive(state.params.key)
+			const stream = websocket(url)
+			const plex = dataplex()
+
+			pipe(stream, plex, stream)
+
+			emitter.on('drive-init', driveInit)
+
+			function driveInit (info) {
+				const { name, key } = info
+				const drive = !!key
+				? hyperdrive(ram, key)
+				: hyperdrive(ram)
+
+				state.mnt[name] = drive
+
+				drive.on('ready', function () {
+					const key = drive.key.toString('hex')
+					const plexStream = plex.open(`/${key}`)
+					console.log(key)
+
+					pipe(plexStream, drive.replicate({ live: true }), plexStream)
+				})
+			}
 		})
-
-		function initdrive () {
-			const drive = hyperdrive(ram)
-			state.drive = drive
-
-			drive.on('ready', function () {
-				const key = drive.key.toString('hex')
-				const stream = websocket(`${url}/${key}`)
-				console.log(key)
-
-				pipe(stream, drive.replicate({ live: true }), stream)
-			})
-		}
-
-		function connectdrive (key) {
-			const drive = hyperdrive(ram, key)
-			state.drive = drive
-
-			drive.on('ready', function () {
-				const key = drive.key.toString('hex')
-				const stream = websocket(`${url}/${key}`)
-				console.log(key)
-
-				pipe(stream, drive.replicate({ live: true }), stream)
-			})
-		}
 	}
 }

@@ -13,15 +13,16 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-		"start:socket": "dat-socket 3000",
+    "start:socket": "dat-socket 3000",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "choo": "^6.13.0",
     "@zigy/dat-socket": "^0.1.0-alpha.b217066",
-    "random-access-memory": "^3.0.0",
+    "choo": "^6.13.0",
+    "dataplex": "^3.0.2",
     "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
     "mississippi": "^3.0.0",
+    "random-access-memory": "^3.0.0",
     "websocket-stream": "^5.1.2"
   }
 }

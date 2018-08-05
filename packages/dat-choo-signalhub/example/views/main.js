@@ -9,11 +9,22 @@ function view (state, emit) {
 
   return html`
     <body class="code lh-copy">
-			<h1>Initializing Drive...</h1>
+			<button onclick=${onclick}>create drives</button>
+		  <input id="name" type=text/>
+		  <input id="key" type=text/>
+			<button onclick=${onmount}>Mount Drive</button>
     </body>
   `
 
-  function handleClick () {
-    emit('clicks:add', 1)
+  function onclick () {
+		const drives = ['hello', 'goodbye', 'whatevs']
+		drives.forEach(name => emit('drive-init', { name, key: false }))
   }
+
+	function onmount () {
+		const name = document.getElementById('name').value
+		const key = document.getElementById('key').value
+
+		emit('drive-init', { name, key })
+	}
 }

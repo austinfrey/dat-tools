@@ -9,6 +9,7 @@
     "start:client": "node bin"
   },
   "dependencies": {
+    "dataplex": "^3.0.2",
     "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
     "mississippi": "^3.0.0",
     "random-access-memory": "^3.0.0",

@@ -1,5 +1,6 @@
 const http = require('http')
 const websocket = require('websocket-stream')
+const dataplex = require('dataplex')
 const { pipe, through } = require('mississippi')
 const hyperdrive = require('hyperdrive')
 const ram = require('random-access-memory')
@@ -18,25 +19,26 @@ function startServer (port, cb) {
 }
 
 function handler (stream, request) {
-	const key = request.url.slice(1)
-	console.log(key)
+	const plex = dataplex()
 
-	const archive = hyperdrive(ram, key)
-	const sw = swarm(archive)
+	plex.add('/:key', function (opts) {
+		const { key } = opts
+		const archive = hyperdrive(ram, key)
+		const sw = swarm(archive)
+		console.log(key)
 
-	sw.on('connection', (peer, type) => console.log(type))
+		sw.on('connection', (peer, type) => console.log(type))
 
-	archive.ready(function () {
-		const archiveStream = archive.replicate({ live: true })
-
-		pipe(
-			stream,
-			archiveStream,
-			through(logger),
-			stream,
-			end
-		)
+		return archive.replicate({ live: true })
 	})
+
+	pipe(
+		stream,
+		through(logger),
+		plex,
+		stream,
+		end
+	)
 }
 
 function logger (chunk, enc, next) {
@@ -46,7 +48,7 @@ function logger (chunk, enc, next) {
 }
 
 function end (err) {
-	if (err) return console.error('EEERRRRRRROOOOO', err)
+	if (err) return console.error('[ ERROR ]', err.message)
   console.log('Socket Closed')
 }
 

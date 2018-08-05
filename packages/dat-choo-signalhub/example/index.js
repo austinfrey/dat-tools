@@ -16,7 +16,6 @@ const datChooSignalhub = passInUrls(urls)
 app.use(datChooSignalhub)
 
 app.route('/', require('./views/main'))
-app.route('/:key', require('./views/key'))
 
 module.exports = app.mount('body')
 
