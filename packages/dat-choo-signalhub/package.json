@@ -14,10 +14,23 @@
   "main": "index.js",
   "scripts": {
 		"start:signalhub": "signalhub listen -p 8080",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from root\" && exit 1",
+		"lint": "xo --fix"
+  },
+  "xo": {
+		"semicolon": false,
+    "globals": [
+      "document"
+    ],
+    "rules": {
+      "no-undef": ["warn", {
+        "typeof": true
+      }]
+    }
   },
   "dependencies": {
     "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
+    "dataplex": "^3.0.2",
     "mississippi": "^3.0.0",
     "random-access-memory": "^3.0.0",
     "signalhub": "^4.9.0",

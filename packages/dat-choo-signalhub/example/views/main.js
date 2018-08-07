@@ -1,19 +1,30 @@
-var html = require('choo/html')
+const html = require('choo/html')
 
-var TITLE = 'example - main'
+const TITLE = 'example - main'
 
 module.exports = view
 
-function view (state, emit) {
-  if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
+function view(state, emit) {
+	if (state.title !== TITLE) {
+		emit(state.events.DOMTITLECHANGE, TITLE)
+	}
 
-  return html`
+	return html`
     <body class="code lh-copy">
-			<h1>Initializing Drive...</h1>
+			<button onclick=${onclick}>create drives</button>
+		  <input id="key" type=text/>
+			<button onclick=${onmount}>Mount Drive</button>
     </body>
   `
 
-  function handleClick () {
-    emit('clicks:add', 1)
-  }
+	function onclick() {
+		const drives = ['hello', 'goodbye', 'whatevs']
+		drives.forEach(() => emit('drive-init', false))
+	}
+
+	function onmount() {
+		const key = document.getElementById('key').value
+
+		emit('drive-sync', key)
+	}
 }

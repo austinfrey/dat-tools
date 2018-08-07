@@ -1,7 +1,5 @@
 # `dat-choo-signalhub`
 
-code stolen from `joehand/hyperdb-web-example`
-
 > A Choo store component that creates a hyperdrive and replicates via
 > WebRTC.
 

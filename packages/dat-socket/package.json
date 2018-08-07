@@ -7,7 +7,20 @@
     "dat-socket": "bin.js"
   },
   "scripts": {
-    "start:socket": "node bin"
+    "start:socket": "node bin",
+		"lint": "xo --fix"
+  },
+  "xo": {
+		"semicolon": false,
+    "rules": {
+      "no-undef": ["warn", {
+        "typeof": true
+      }],
+			"prefer-destructuring": ["error", {
+				"object": true,
+				"array": false}
+			]
+    }
   },
   "keywords": [
     "dat",
@@ -18,6 +31,7 @@
   "author": "Austin Frey",
   "license": "MIT",
   "dependencies": {
+    "dataplex": "^3.0.2",
     "hyperdiscovery": "^8.0.0",
     "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
     "mississippi": "^3.0.0",

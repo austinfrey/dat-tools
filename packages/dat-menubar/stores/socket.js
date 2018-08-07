@@ -11,22 +11,25 @@ function socketStore(state, emitter) {
 	emitter.on('DOMContentLoaded', () => {
 		emitter.on('socket-on', toggleSocket)
 
-		function toggleSocket (socketOpts) {
+		function toggleSocket(socketOpts) {
 			console.log('TOGGLE ON?', socketOpts.on)
-			socketOpts.on ? openSocket(socketOpts) : closeSocket()
+			if (socketOpts.on) {
+				return openSocket(socketOpts)
+			}
+			closeSocket()
 		}
 
-		function closeSocket () {
+		function closeSocket() {
 			return client.request('close-socket', () => {
 				console.log('SOCKET OFF')
 				state.socketOn = false
-		  })
+			})
 		}
 
 		function openSocket(socketOpts) {
 			return client.request('open-socket', socketOpts.opts, () => {
 				console.log('SOCKET ON')
-			  state.socketOn = true
+				state.socketOn = true
 			})
 		}
 	})

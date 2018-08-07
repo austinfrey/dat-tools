@@ -1,34 +1,36 @@
 const hyperdrive = require('hyperdrive')
 const ram = require('random-access-memory')
 const websocket = require('websocket-stream')
-const { pipe } = require('mississippi')
+const dataplex = require('dataplex')
+const {pipe, through} = require('mississippi')
 
-function socketClient (key, opts, url) {
+function socketClient(key, opts, url) {
 	const socket = websocket(url)
-  const drive = hyperdrive(ram, key)
+	const plex = dataplex()
+
+	const drive = hyperdrive(ram, key)
 
 	if (typeof opts === 'string') {
 		url = opts
 		opts = {}
 	}
 
-	drive.ready(function ready () {
+	pipe(socket, plex, socket)
+
+	drive.ready(() => {
+		const stream = plex.open(`/${key}`)
 		console.log('KEY', drive.key.toString('hex'))
-	  const driveStream = drive.replicate(opts)
 
-		pipe(
-			socket,
-			driveStream,
-			socket
-		)
+		pipe(stream, logger(), drive.replicate(opts), stream)
 
-		driveStream.on('end', function () {
-			console.log('ENDED')
-			//socket.close()
-			//drive.finalize()
-		})
+		function logger() {
+			return through(function (chunk, enc, next) {
+				console.log('DATA', chunk)
+				this.push(chunk)
+				next()
+			})
+		}
 	})
-
 }
 
 module.exports = socketClient
