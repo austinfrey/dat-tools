@@ -7,7 +7,20 @@
     "dat-socket": "bin.js"
   },
   "scripts": {
-    "start:socket": "node bin"
+    "start:socket": "node bin",
+		"lint": "xo --fix"
+  },
+  "xo": {
+		"semicolon": false,
+    "rules": {
+      "no-undef": ["warn", {
+        "typeof": true
+      }],
+			"prefer-destructuring": ["error", {
+				"object": true,
+				"array": false}
+			]
+    }
   },
   "keywords": [
     "dat",

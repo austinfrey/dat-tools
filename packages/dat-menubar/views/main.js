@@ -26,7 +26,7 @@ function mainView(state, emit) {
 			h('div', [
 				h('input', {
 					type: 'checkbox',
-				  name: 'encrypt',
+					name: 'encrypt',
 					value: 'encrypt',
 					id: 'encrypt',
 					checked: true
@@ -70,6 +70,6 @@ function mainView(state, emit) {
 			upload: document.getElementById('upload').checked
 		}
 		console.log('VIEW', opts)
-		emit('socket-on', { on: !state.socketOn, opts })
+		emit('socket-on', {on: !state.socketOn, opts})
 	}
 }

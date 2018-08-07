@@ -14,7 +14,19 @@
   "main": "index.js",
   "scripts": {
     "start:socket": "dat-socket 3000",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from root\" && exit 1",
+		"lint": "xo --fix"
+  },
+  "xo": {
+		"semicolon": false,
+    "globals": [
+      "document"
+    ],
+    "rules": {
+      "no-undef": ["warn", {
+        "typeof": true
+      }]
+    }
   },
   "dependencies": {
     "@zigy/dat-socket": "^0.1.0-alpha.b217066",

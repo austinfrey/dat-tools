@@ -2,50 +2,66 @@ const hyperdrive = require('hyperdrive')
 const ram = require('random-access-memory')
 const signalhub = require('signalhub')
 const dataplex = require('dataplex')
-const { pipe, through } = require('mississippi')
+const {pipe, through} = require('mississippi')
 const swarm = require('webrtc-swarm')
 
-function passInUrl (urlsArray) {
-	return function datChooSignalhub (state, emitter) {
+module.exports = passInUrl
+
+function passInUrl(urlsArray) {
+	return function (state, emitter) {
 		state.mnt = state.mnt || {}
 
-		emitter.on(state.events.DOMCONTENTLOADED, function () {
+		emitter.on(state.events.DOMCONTENTLOADED, () => {
 			const plex = dataplex()
-			plex.add('/:key/:name', function (opts) {
-				const { key, name } = opts
-				const drive = state.mnt[name] || hyperdrive(ram, key)
-				console.log('DRIVE', drive)
-
-				return drive.replicate({ live: true })
-			})
-
 			const sw = swarm(signalhub('testing-dataplex', urlsArray))
 
-			sw.on('peer', function (stream) {
-				console.log('peer')
-				pipe(stream, plex, stream)
-			})
+			sw.on('peer', peer => pipe(peer, plex, peer))
 
 			emitter.on('drive-init', driveInit)
+			emitter.on('drive-sync', driveSync)
 
-			function driveInit (info) {
-				const { name, key } = info
+			plex.add('/:key', opts => {
+				const {key} = opts
+				const drive = state.mnt[key] || createDrive()
 
-				const drive = !!key
-				? hyperdrive(ram, key)
-				: hyperdrive(ram)
+				function createDrive() {
+					const drive = hyperdrive(ram, key)
+					state.mnt[key] = drive
+					return drive
+				}
 
-				drive.on('ready', function () {
-					state.mnt[name] = drive
+				return drive.replicate({live: true})
+			})
+
+			function driveInit(key) {
+				const drive = key ? hyperdrive(ram, key) : hyperdrive(ram)
+
+				drive.on('ready', () => {
 					const key = drive.key.toString('hex')
-					const plexStream = plex.remote(`/${key}/${name}`)
-					console.log(key)
-
-					pipe(plexStream, logger(), drive.replicate({ live: true }), plexStream)
+					state.mnt[key] = drive
 				})
 			}
 
-			function logger () {
+			function driveSync(key) {
+				const drive = hyperdrive(ram, key)
+
+				function onReady() {
+					const key = drive.key.toString('hex')
+					const plexStream = plex.remote(`/${key}`)
+					state.mnt[key] = drive
+
+					pipe(
+						plexStream,
+						logger(),
+						drive.replicate({live: true}),
+						plexStream
+					)
+				}
+
+				drive.ready(onReady)
+			}
+
+			function logger() {
 				return through(function (chunk, enc, next) {
 					console.log('DATA', chunk)
 					this.push(chunk)
@@ -56,4 +72,3 @@ function passInUrl (urlsArray) {
 	}
 }
 
-module.exports = passInUrl

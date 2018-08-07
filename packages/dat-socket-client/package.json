@@ -6,7 +6,19 @@
   "bin": "bin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:client": "node bin"
+    "start:client": "node bin",
+		"lint": "xo --fix"
+  },
+  "xo": {
+		"semicolon": false,
+    "globals": [
+      "document"
+    ],
+    "rules": {
+      "no-undef": ["warn", {
+        "typeof": true
+      }]
+    }
   },
   "dependencies": {
     "dataplex": "^3.0.2",

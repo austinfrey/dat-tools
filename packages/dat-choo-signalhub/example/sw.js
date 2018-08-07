@@ -1,28 +1,34 @@
 /* eslint-env serviceworker */
 
-var VERSION = require('./package.json').version
-var URLS = process.env.FILE_LIST
+const VERSION = require('./package.json').version
+
+const URLS = process.env.FILE_LIST
 
 // Respond with cached resources
-self.addEventListener('fetch', function (e) {
-  e.respondWith(self.caches.match(e.request).then(function (request) {
-    if (request) return request
-    else return self.fetch(e.request)
-  }))
+self.addEventListener('fetch', e => {
+	e.respondWith(self.caches.match(e.request).then(request => {
+		if (request) {
+			return request
+		}
+		return self.fetch(e.request)
+	}))
 })
 
 // Register worker
-self.addEventListener('install', function (e) {
-  e.waitUntil(self.caches.open(VERSION).then(function (cache) {
-    return cache.addAll(URLS)
-  }))
+self.addEventListener('install', e => {
+	e.waitUntil(self.caches.open(VERSION).then(cache => {
+		return cache.addAll(URLS)
+	}))
 })
 
 // Remove outdated resources
-self.addEventListener('activate', function (e) {
-  e.waitUntil(self.caches.keys().then(function (keyList) {
-    return Promise.all(keyList.map(function (key, i) {
-      if (keyList[i] !== VERSION) return self.caches.delete(keyList[i])
-    }))
-  }))
+self.addEventListener('activate', e => {
+	e.waitUntil(self.caches.keys().then(keyList => {
+		return Promise.all(keyList.map((key, i) => {
+			if (keyList[i] !== VERSION) {
+				return self.caches.delete(keyList[i])
+			}
+			return true
+		}))
+	}))
 })
