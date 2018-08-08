@@ -5,19 +5,23 @@
   "main": "index.js",
   "bin": "bin.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tape tests/*.js",
     "start:client": "node bin",
-		"lint": "xo --fix"
+    "start:socket": "dat-socket 3000",
+    "lint": "xo --fix"
   },
   "xo": {
-		"semicolon": false,
+    "semicolon": false,
     "globals": [
       "document"
     ],
     "rules": {
-      "no-undef": ["warn", {
-        "typeof": true
-      }]
+      "no-undef": [
+        "warn",
+        {
+          "typeof": true
+        }
+      ]
     }
   },
   "dependencies": {
@@ -25,9 +29,12 @@
     "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
     "mississippi": "^3.0.0",
     "random-access-memory": "^3.0.0",
-    "signalhub": "^4.9.0",
     "to-buffer": "^1.1.1",
     "websocket-stream": "^5.1.2"
+  },
+  "devDependencies": {
+    "@zigy/dat-socket": "0.1.0-alpha.9091057",
+    "tape": "^4.9.1"
   },
   "keywords": [],
   "author": "",

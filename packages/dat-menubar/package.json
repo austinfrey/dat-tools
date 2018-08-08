@@ -8,17 +8,20 @@
     "electron": "electron .",
     "build:electron": "electron-packager . dat-menubar  --platform=linux --arch=x64 --electron-version=2.0.5 --overwrite=true",
     "build:browserify": "browserify app.js -o bundles/bundle.js -t yo-yoify -t  [ sheetify -u sheetify-cssnext ] -g es2040 -p [ css-extract -o bundles/bundle.css ] -p tinyify",
-		"lint": "xo --fix"
+    "lint": "xo --fix"
   },
   "xo": {
-		"semicolon": false,
+    "semicolon": false,
     "globals": [
       "document"
     ],
     "rules": {
-      "no-undef": ["warn", {
-        "typeof": true
-      }]
+      "no-undef": [
+        "warn",
+        {
+          "typeof": true
+        }
+      ]
     }
   },
   "keywords": [],
@@ -44,7 +47,8 @@
     "electron-packager": "^12.1.0",
     "sheetify": "^7.3.3",
     "tinyify": "^2.4.3",
-    "yo-yoify": "^4.3.0"
+    "yo-yoify": "^4.3.0",
+    "tape": "^4.9.1"
   },
   "gitHead": "b217066f397e15db1141bcf06bafc61356c6ccb3"
 }

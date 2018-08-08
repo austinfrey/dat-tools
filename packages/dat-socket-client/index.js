@@ -1,36 +1,39 @@
+const EventEmitter = require('events')
 const hyperdrive = require('hyperdrive')
 const ram = require('random-access-memory')
 const websocket = require('websocket-stream')
 const dataplex = require('dataplex')
-const {pipe, through} = require('mississippi')
+const pump = require('pump')
 
-function socketClient(key, opts, url) {
+const bus = new EventEmitter()
+
+module.exports = socketClient
+
+function socketClient(url) {
 	const socket = websocket(url)
 	const plex = dataplex()
 
-	const drive = hyperdrive(ram, key)
+	pump(socket, plex, socket)
 
-	if (typeof opts === 'string') {
-		url = opts
-		opts = {}
-	}
+	return function (key, opts) {
+		if (!opts) opts = { live: true }
 
-	pipe(socket, plex, socket)
-
-	drive.ready(() => {
-		const stream = plex.open(`/${key}`)
-		console.log('KEY', drive.key.toString('hex'))
-
-		pipe(stream, logger(), drive.replicate(opts), stream)
-
-		function logger() {
-			return through(function (chunk, enc, next) {
-				console.log('DATA', chunk)
-				this.push(chunk)
-				next()
-			})
+		if (typeof key === 'object') {
+			opts = key
+			key = null
 		}
-	})
-}
 
-module.exports = socketClient
+		const drive = (!key) ? hyperdrive(ram) : hyperdrive(ram, key)
+
+		drive.ready(() => {
+			const key = drive.key.toString('hex')
+			const stream = plex.open(`/${key}`)
+
+			bus.emit('ready')
+
+			pipe(stream, drive.replicate(opts), stream)
+		})
+
+		return { socket, drive, bus }
+	}
+}

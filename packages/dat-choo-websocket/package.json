@@ -15,17 +15,20 @@
   "scripts": {
     "start:socket": "dat-socket 3000",
     "test": "echo \"Error: run tests from root\" && exit 1",
-		"lint": "xo --fix"
+    "lint": "xo --fix"
   },
   "xo": {
-		"semicolon": false,
+    "semicolon": false,
     "globals": [
       "document"
     ],
     "rules": {
-      "no-undef": ["warn", {
-        "typeof": true
-      }]
+      "no-undef": [
+        "warn",
+        {
+          "typeof": true
+        }
+      ]
     }
   },
   "dependencies": {
@@ -36,5 +39,8 @@
     "mississippi": "^3.0.0",
     "random-access-memory": "^3.0.0",
     "websocket-stream": "^5.1.2"
+  },
+  "devDependencies": {
+    "tape": "^4.9.1"
   }
 }

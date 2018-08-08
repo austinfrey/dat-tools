@@ -6,5 +6,7 @@ const socketClient = require('.')
 const {key, options} = require(path.join(__dirname, './client-config.json'))
 const url = require(path.join(__dirname, './client-config.json')).url || 'ws://localhost:3000'
 
-socketClient(key, options, url)
+const client = socketClient(url)
+
+client(key, options)
 

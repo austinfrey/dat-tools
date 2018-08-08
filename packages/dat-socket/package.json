@@ -8,18 +8,24 @@
   },
   "scripts": {
     "start:socket": "node bin",
-		"lint": "xo --fix"
+    "lint": "xo --fix"
   },
   "xo": {
-		"semicolon": false,
+    "semicolon": false,
     "rules": {
-      "no-undef": ["warn", {
-        "typeof": true
-      }],
-			"prefer-destructuring": ["error", {
-				"object": true,
-				"array": false}
-			]
+      "no-undef": [
+        "warn",
+        {
+          "typeof": true
+        }
+      ],
+      "prefer-destructuring": [
+        "error",
+        {
+          "object": true,
+          "array": false
+        }
+      ]
     }
   },
   "keywords": [
@@ -40,6 +46,9 @@
     "stoppable": "^1.0.6",
     "to-buffer": "^1.1.1",
     "websocket-stream": "^5.1.2"
+  },
+  "devDependencies": {
+    "tape": "^4.9.1"
   },
   "gitHead": "b217066f397e15db1141bcf06bafc61356c6ccb3"
 }

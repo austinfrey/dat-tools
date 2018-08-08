@@ -28,14 +28,13 @@ function handler(stream) {
 		const sw = swarm(archive)
 		console.log(key)
 
-		sw.on('connection', (peer, type) => console.log(type))
+		sw.on('connection', (peer, type) => console.log('peer'))
 
 		return archive.replicate({live: true})
 	})
 
 	pipe(
 		stream,
-		through(logger),
 		plex,
 		stream,
 		end

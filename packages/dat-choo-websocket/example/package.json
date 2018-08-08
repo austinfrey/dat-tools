@@ -7,6 +7,7 @@
     "create": "choo-scaffold",
     "inspect": "bankai inspect index.js",
     "start": "bankai start index.js",
+    "start:socket": "dat-socket 3000",
     "test": "standard && npm run test-deps",
     "test-deps": "dependency-check . && dependency-check . --extra --no-dev -i tachyons"
   },
@@ -17,6 +18,7 @@
     "tachyons": "^4.11.1"
   },
   "devDependencies": {
+    "@zigy/dat-socket": "0.1.0-alpha.9091057",
     "bankai": "^9.14.0",
     "choo-devtools": "^2.5.1",
     "choo-scaffold": "^1.2.0",
