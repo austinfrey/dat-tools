@@ -31,7 +31,7 @@ function socketClient(url) {
 
 			bus.emit('ready')
 
-			pipe(stream, drive.replicate(opts), stream)
+			pump(stream, drive.replicate(opts), stream)
 		})
 
 		return { socket, drive, bus }
