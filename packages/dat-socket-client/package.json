@@ -1,6 +1,6 @@
 {
   "name": "@zigy/dat-socket-client",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "bin": "bin.js",
@@ -46,5 +46,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "gitHead": "b217066f397e15db1141bcf06bafc61356c6ccb3"
+  "gitHead": "1283e8cf27c40ab1967a2fd5eb8b22118e932aa1"
 }

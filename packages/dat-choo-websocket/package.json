@@ -1,6 +1,6 @@
 {
   "name": "@zigy/dat-choo-websocket",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Choo store component that adds a websocket client to the state",
   "keywords": [
     "dat",
@@ -32,7 +32,7 @@
     }
   },
   "dependencies": {
-    "@zigy/dat-socket": "^0.0.2",
+    "@zigy/dat-socket": "^0.0.3",
     "choo": "^6.13.0",
     "dataplex": "^3.0.2",
     "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",

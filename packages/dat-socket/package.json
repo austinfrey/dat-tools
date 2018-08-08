@@ -1,6 +1,6 @@
 {
   "name": "@zigy/dat-socket",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "use in a project `npm install --save zigy/dat-socket`",
   "main": "index.js",
   "bin": {
