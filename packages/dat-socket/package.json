@@ -1,12 +1,13 @@
 {
   "name": "@zigy/dat-socket",
-  "version": "0.1.0-alpha.b217066",
+  "version": "0.0.1",
   "description": "use in a project `npm install --save zigy/dat-socket`",
   "main": "index.js",
   "bin": {
     "dat-socket": "bin.js"
   },
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0",
     "start:socket": "node bin",
     "lint": "xo --fix"
   },
@@ -40,7 +41,7 @@
     "dataplex": "^3.0.2",
     "hyperdiscovery": "^8.0.0",
     "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
-    "mississippi": "^3.0.0",
+    "pump": "^3.0.0",
     "random-access-memory": "^3.0.0",
     "signalhub": "^4.9.0",
     "stoppable": "^1.0.6",

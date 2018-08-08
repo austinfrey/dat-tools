@@ -1,6 +1,6 @@
 {
   "name": "@zigy/dat-socket-client",
-  "version": "0.1.0-alpha.b217066",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "bin": "bin.js",
@@ -16,6 +16,12 @@
       "document"
     ],
     "rules": {
+      "unicorn/no-process-exit": [
+        "warn",
+        {
+          "typeof": true
+        }
+      ],
       "no-undef": [
         "warn",
         {
@@ -27,13 +33,14 @@
   "dependencies": {
     "dataplex": "^3.0.2",
     "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
-    "mississippi": "^3.0.0",
+    "pump": "^3.0.0",
     "random-access-memory": "^3.0.0",
     "to-buffer": "^1.1.1",
     "websocket-stream": "^5.1.2"
   },
   "devDependencies": {
     "@zigy/dat-socket": "0.1.0-alpha.9091057",
+    "hyperdiscovery": "^8.0.0",
     "tape": "^4.9.1"
   },
   "keywords": [],

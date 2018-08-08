@@ -14,7 +14,7 @@
   "main": "index.js",
   "scripts": {
     "start:signalhub": "signalhub listen -p 8080",
-    "test": "echo \"Error: run tests from root\" && exit 1",
+    "test": "echo \"Error: run tests from root\" && exit 0",
     "lint": "xo --fix"
   },
   "xo": {
@@ -35,6 +35,7 @@
     "dataplex": "^3.0.2",
     "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
     "mississippi": "^3.0.0",
+    "pump": "^3.0.0",
     "random-access-memory": "^3.0.0",
     "signalhub": "^4.9.0",
     "webrtc-swarm": "^2.9.0"
