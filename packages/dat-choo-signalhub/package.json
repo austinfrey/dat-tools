@@ -14,7 +14,7 @@
   "main": "index.js",
   "scripts": {
     "start:signalhub": "signalhub listen -p 8080",
-    "test": "echo \"Error: run tests from root\" && exit 0",
+    "test": "tape tests/*.js | faucet",
     "lint": "xo --fix"
   },
   "xo": {
@@ -41,6 +41,7 @@
     "webrtc-swarm": "^2.9.0"
   },
   "devDependencies": {
+    "faucet": "^0.0.1",
     "tape": "^4.9.1"
   }
 }

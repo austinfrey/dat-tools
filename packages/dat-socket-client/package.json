@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": "bin.js",
   "scripts": {
-    "test": "tape tests/*.js",
+    "test": "tape tests/*.js | faucet",
     "start:client": "node bin",
     "start:socket": "dat-socket 3000",
     "lint": "xo --fix"
@@ -39,7 +39,8 @@
     "websocket-stream": "^5.1.2"
   },
   "devDependencies": {
-    "@zigy/dat-socket": "0.1.0-alpha.9091057",
+    "@zigy/dat-socket": "^0.0.3",
+    "faucet": "^0.0.1",
     "hyperdiscovery": "^8.0.0",
     "tape": "^4.9.1"
   },

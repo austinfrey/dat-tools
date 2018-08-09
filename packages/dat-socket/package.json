@@ -7,7 +7,7 @@
     "dat-socket": "bin.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "tape tests/*.js | tap-difflet",
     "start:socket": "node bin",
     "lint": "xo --fix"
   },
@@ -49,6 +49,8 @@
     "websocket-stream": "^5.1.2"
   },
   "devDependencies": {
+    "faucet": "^0.0.1",
+    "tap-difflet": "^0.7.1",
     "tape": "^4.9.1"
   },
   "gitHead": "b217066f397e15db1141bcf06bafc61356c6ccb3"

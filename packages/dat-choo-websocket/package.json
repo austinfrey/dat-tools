@@ -14,7 +14,7 @@
   "main": "index.js",
   "scripts": {
     "start:socket": "dat-socket 3000",
-    "test": "echo \"Error: run tests from root\" && exit 0",
+    "test": "tape tests/*.js | faucet",
     "lint": "xo --fix"
   },
   "xo": {
@@ -42,6 +42,7 @@
     "websocket-stream": "^5.1.2"
   },
   "devDependencies": {
+    "faucet": "^0.0.1",
     "tape": "^4.9.1"
   }
 }

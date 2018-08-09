@@ -4,7 +4,7 @@
   "description": "Electron based menubar app for dat-socket",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "tape tests/*.js | faucet",
     "electron": "electron .",
     "build:electron": "electron-packager . dat-menubar  --platform=linux --arch=x64 --electron-version=2.0.5 --overwrite=true",
     "build:browserify": "browserify app.js -o bundles/bundle.js -t yo-yoify -t  [ sheetify -u sheetify-cssnext ] -g es2040 -p [ css-extract -o bundles/bundle.css ] -p tinyify",
@@ -46,6 +46,7 @@
     "css-extract": "^1.3.0",
     "electron": "^2.0.5",
     "electron-packager": "^12.1.0",
+    "faucet": "^0.0.1",
     "sheetify": "^7.3.3",
     "tape": "^4.9.1",
     "tinyify": "^2.4.3",
