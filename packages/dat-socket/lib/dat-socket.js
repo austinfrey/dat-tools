@@ -1,4 +1,4 @@
-const http = require('http')
+const EventEmitter = require('events')
 const websocket = require('websocket-stream')
 const dataplex = require('dataplex')
 const {pipe, through} = require('mississippi')
@@ -7,38 +7,43 @@ const ram = require('random-access-memory')
 const swarm = require('hyperdiscovery')
 const stoppable = require('stoppable')
 
-module.exports = startServer
+const DAT_KEY_REGEX = /^([0-9a-f]{64})/i
 
-const server = stoppable(http.createServer())
+module.exports = class DatSocket extends EventEmitter {
+	constructor () {
+		super()
+		this.connections = []
+	}
 
-websocket.createServer({server}, handler)
+	createServer (server, cb) {
+		stoppable(server)
+		websocket.createServer({ server }, this.handler)
+		cb()
+	}
 
-function startServer(port, cb) {
-	server.listen(port, cb || listening(port))
+	handler (stream) {
+		const plex = dataplex()
 
-	return server
-}
+		this._addRoute(plex)
+		pipe(stream, plex, stream, end)
+	}
 
-function handler(stream) {
-	const plex = dataplex()
+	_addRoute (plex) {
+		plex.add('/:key', opts => {
+			const {key} = opts
 
-	plex.add('/:key', opts => {
-		const {key} = opts
-		const archive = hyperdrive(ram, key)
-		const sw = swarm(archive)
-		console.log(key)
+			if (!DAT_KEY_REGEX.test(key)) { // How do I send back to client
+				return console.error(new Error('Key is invalid'))
+			}
 
-		sw.on('connection', (peer, type) => console.log('peer'))
+			const archive = hyperdrive(ram, key)
+			const sw = swarm(archive)
 
-		return archive.replicate({live: true})
-	})
+			sw.on('connection', (peer, type) => console.log('peer'))
 
-	pipe(
-		stream,
-		plex,
-		stream,
-		end
-	)
+			return archive.replicate({live: true})
+		})
+	}
 }
 
 function logger(chunk, enc, next) {

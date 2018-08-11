@@ -7,7 +7,7 @@
     "dat-socket": "bin.js"
   },
   "scripts": {
-    "test": "tape tests/*.js | tap-difflet",
+    "test": "tape tests/*.js",
     "start:socket": "node bin",
     "lint": "xo --fix"
   },
