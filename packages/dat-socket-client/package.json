@@ -6,7 +6,7 @@
   "bin": "bin.js",
   "scripts": {
     "test": "tape tests/*.js | faucet",
-    "start:client": "node bin",
+    "dat-client": "node bin",
     "start:socket": "dat-socket 3000",
     "lint": "xo --fix"
   },

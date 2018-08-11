@@ -3,8 +3,9 @@
 const path = require('path')
 const socketClient = require('.')
 
-const {key, options} = require(path.join(__dirname, './client-config.json'))
-const url = require(path.join(__dirname, './client-config.json')).url || 'ws://localhost:3000'
+const key = process.argv[2]
+const options = { live: true }
+const url = 'ws://localhost:3000'
 
 const client = socketClient(url)
 

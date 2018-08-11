@@ -32,6 +32,10 @@ function socketClient(url) {
 			bus.emit('ready')
 
 			pump(stream, drive.replicate(opts), stream)
+
+      drive.db.watch(() => drive.readdir('/', (err, files) => {
+        console.log(err || files)
+      }))
 		})
 
 		return { socket, drive, bus }

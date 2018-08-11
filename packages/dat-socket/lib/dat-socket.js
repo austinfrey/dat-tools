@@ -17,18 +17,17 @@ module.exports = class DatSocket extends EventEmitter {
 
 	createServer (server, cb) {
 		stoppable(server)
-		websocket.createServer({ server }, this.handler)
+		websocket.createServer({ server }, this.handler.bind(this))
 		cb()
 	}
 
 	handler (stream) {
 		const plex = dataplex()
-
-		this._addRoute(plex)
+		this.addRoute(plex)
 		pipe(stream, plex, stream, end)
 	}
 
-	_addRoute (plex) {
+	addRoute (plex) {
 		plex.add('/:key', opts => {
 			const {key} = opts
 
