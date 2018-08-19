@@ -9,6 +9,7 @@
   "scripts": {
     "test": "tape tests/*.js",
     "dat-socket": "node bin 3000",
+    "pm2": "pm2 start bin.js",
     "lint": "xo --fix"
   },
   "xo": {
@@ -43,6 +44,7 @@
     "hyperdrive": "git+https://github.com/mafintosh/hyperdrive.git#hyperdb-backend",
     "pump": "^3.0.0",
     "random-access-memory": "^3.0.0",
+    "routes": "^2.1.0",
     "signalhub": "^4.9.0",
     "stoppable": "^1.0.6",
     "to-buffer": "^1.1.1",

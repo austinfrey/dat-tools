@@ -12,7 +12,7 @@ const DAT_KEY_REGEX = /^([0-9a-f]{64})/i
 module.exports = class DatSocket extends EventEmitter {
 	constructor () {
 		super()
-		this.connections = []
+		this.connections = 0
 	}
 
 	createServer (server, cb) {
@@ -23,11 +23,23 @@ module.exports = class DatSocket extends EventEmitter {
 
 	handler (stream) {
 		const plex = dataplex()
-		this.addRoute(plex)
+    const self = this
+
+    this.addRoute(plex)
 		pipe(stream, plex, stream, end)
+
+    function end(err) {
+      if (err) {
+        self.connections--
+        return console.error('[ ERROR ]', err.message)
+      }
+      console.log('Socket Closed')
+    }
 	}
 
 	addRoute (plex) {
+    const self = this
+
 		plex.add('/:key', opts => {
 			const {key} = opts
 
@@ -38,7 +50,10 @@ module.exports = class DatSocket extends EventEmitter {
 			const archive = hyperdrive(ram, key)
 			const sw = swarm(archive)
 
-			sw.on('connection', (peer, type) => console.log('peer'))
+			sw.on('connection', (peer, type) => {
+        console.log('peer')
+        self.connections++
+      })
 
 			return archive.replicate({live: true})
 		})
@@ -49,13 +64,6 @@ function logger(chunk, enc, next) {
 	console.log('DATA', chunk)
 	this.push(chunk)
 	next()
-}
-
-function end(err) {
-	if (err) {
-		return console.error('[ ERROR ]', err.message)
-	}
-	console.log('Socket Closed')
 }
 
 function listening(port) {
