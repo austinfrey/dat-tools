@@ -1,6 +1,6 @@
 {
   "name": "@zigy/dat-menubar",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Electron based menubar app for dat-socket",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@zigy/dat-socket": "^0.0.3",
+    "@zigy/dat-socket": "^0.0.4",
     "choo": "^6.13.0",
     "choo-devtools": "^2.5.1",
     "dat-colors": "^3.5.1",

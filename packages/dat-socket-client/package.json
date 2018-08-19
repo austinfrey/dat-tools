@@ -1,6 +1,6 @@
 {
   "name": "@zigy/dat-socket-client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "bin": "bin.js",
@@ -39,7 +39,7 @@
     "websocket-stream": "^5.1.2"
   },
   "devDependencies": {
-    "@zigy/dat-socket": "^0.0.3",
+    "@zigy/dat-socket": "^0.0.4",
     "faucet": "^0.0.1",
     "hyperdiscovery": "^8.0.0",
     "tape": "^4.9.1"

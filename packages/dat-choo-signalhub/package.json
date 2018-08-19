@@ -1,6 +1,6 @@
 {
   "name": "@zigy/dat-choo-signalhub",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "a Choo store component that adds a signalhub client to the state",
   "keywords": [
     "choo",
